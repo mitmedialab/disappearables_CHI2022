@@ -3,24 +3,29 @@ PeasyCam cam;
 
 
 void setup() {
-  size(1600, 950, P3D);
-  frameRate(60);
+  
+
+  size(1400, 950, P3D);
+  
   blendMode(BLEND);
   noStroke();
   smooth();
   cam = new PeasyCam(this, 400);
   
   cam.setDistance(800);
-
+  
   setupStageParameter();
   setupCSV();
   
+  
   gui();
+  
+  frameRate(60);
 }
 
 
 void draw() {
-
+  
   if (keyPressed && key == ' ') {
     cam.setMouseControlled(true);
   } else {
@@ -34,6 +39,7 @@ void draw() {
 
   getMouseforCanvas();
   cam.beginHUD();
+  
   cp5.draw();
   cam.endHUD();
 }

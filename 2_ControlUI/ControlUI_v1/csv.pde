@@ -1,5 +1,5 @@
 String[] filenames;
-String dirPath = "/Users/kennakagaki/Dropbox (MIT)/MIT/TMG/Projects/HERMITS/(Dis)Appearables/code/stage/StageDesignUI_v0_3/data/csv/";  // CHANGE THIS FOR YOUR DIRECTORY
+String dirPath = System.getProperty("user.home") + "/Documents/GitHub/disappearables_CHI2022/1_StageDesignUI/StageDesignUI_v0_3/data/csv/";  // CHANGE THIS FOR YOUR DIRECTORY
 
 int currentFileNum = 0;
 

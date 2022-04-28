@@ -167,7 +167,7 @@ void renderStage() {
 
   ////Render toio////
   renderToio(50, 40, 32);
-
+  renderToio(80, 40, 32);
   drawPortalWall();
   drawPortalFloor();
 
@@ -267,7 +267,7 @@ void drawWall() {
         for (int k = 0; k < dist; k++) {
           float xx = map(k, 0, dist, wallPoint[i].x, wallPoint[i+1].x);
           float yy = map(k, 0, dist, wallPoint[i].y, wallPoint[i+1].y);
-
+          print(xx,yy);
           float dd = dist(xx, yy, portalWallVec[j].x, portalWallVec[j].y);
           float dddd = dist(ddp.x, ddp.y, xx, yy);//
 

@@ -1,12 +1,31 @@
 String[] filenames;
 
 // change this to your own path
-String dirPath = "/Users/kennakagaki/Dropbox (MIT)/MIT/TMG/Projects/HERMITS/(Dis)Appearables/code/stage/StageDesignUI_v0_3/data/csv/";  // CHANGE THIS FOR YOUR DIRECTORY
+String dirPath = System.getProperty("user.home") + "/Documents/GitHub/disappearables_CHI2022/1_StageDesignUI/StageDesignUI_v0_3/data/csv/";  // CHANGE THIS FOR YOUR DIRECTORY
 
 void setupCSV() {
   loadFileNames();
 }
 
+void savePlanerMap(){
+  PrintWriter mapFile = createWriter(dirPath+cp5.get(Textfield.class, "FileName").getText()+".txt");
+  mapFile.println(stageWidthMax +","+ stageDepthMax + "," + wallPointNum + "," + portalWallNum);
+  for (int i = 0; i < wallPointNum-1; i++) {
+    mapFile.println(wallPoint[i].x + "," + wallPoint[i].y + "," + wallPoint[i+1].x + "," + wallPoint[i+1].y);
+  }
+  
+  for (int i = 0; i < portalWallNum; i++) {
+    
+    mapFile.println(portalWallVec[i].x + "," + portalWallVec[i].y 
+                        + "," + portalWallEdgeL[i].x + "," + portalWallEdgeL[i].y
+                        + "," + portalWallEdgeR[i].x + "," + portalWallEdgeR[i].y +"," +portalWallWidth[i]);
+   
+  }
+  
+  mapFile.flush();
+  mapFile.close();
+  
+}
 
 void saveCSV() {
   Table table;
@@ -135,7 +154,7 @@ void saveCSV() {
   String name = cp5.get(Textfield.class, "FileName").getText();
 
   saveTable(table, "data/csv/" + name + ".csv");
-
+  savePlanerMap();
   println("SAVED CSV - FILENAME: ", name, ".csv");
 }
 
