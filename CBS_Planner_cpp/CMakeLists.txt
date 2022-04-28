@@ -1,10 +1,11 @@
-﻿# CMakeList.txt : CMake project for planner, include source and define
+# CMakeList.txt : CMake project for planner, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
 
 project ("planner")
 set(CMAKE_BUILD_TYPE "Release")
+set (CMAKE_CXX_STANDARD 11)
 
 
 find_package( Boost REQUIRED COMPONENTS program_options system filesystem)
