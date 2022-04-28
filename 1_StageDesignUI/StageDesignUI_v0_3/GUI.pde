@@ -29,7 +29,6 @@ int draggedPortal = 0;
 boolean draggingWallPoint = false;
 int draggedWallPoint = 0;
 
-String movementPlan = "";
 
 void gui() {
 
@@ -54,27 +53,6 @@ void gui() {
     .setBackgroundHeight(160)
     ;
 
-  // group number 4, loads a plan.
-  Group g4 = cp5.addGroup("PlanList")
-    .setBackgroundColor(color(0, 64))
-    .setBackgroundHeight(160)
-    ;
-
-  // Bang b = 
-  cp5.addBang("LOAD PLAN")
-    .setPosition(0, 0)
-    .setSize(80, 20)
-    .moveTo(g4)
-    .plugTo(this, "loadCSV");
-  ;
-  
-  // Bang b = 
-  cp5.addBang("PLAY PLAN")
-    .setPosition(90, 0)
-    .setSize(80, 20)
-    .moveTo(g4)
-    ;
-  ;  
 
   fileList = Arrays.asList(filenames);
 
@@ -165,7 +143,6 @@ void gui() {
     .addItem(g1)
     .addItem(g2)
     .addItem(g3)
-    .addItem(g4)
     ;
 
   accordionMain.open(0, 1, 2);
@@ -478,19 +455,6 @@ void clearStageEdit() {
   }
 }
 
-// funcitons for loading and playing a plan.
-void loadCSV(){
-  selectInput("Select a plan file to process:", "fileSelected");
-}
-
-void fileSelected(File selection) {
-  if (selection == null) {
-    println("Window was closed or the user hit cancel.");
-  } else {
-    println("User selected " + selection.getAbsolutePath());
-    movementPlan = selection.getAbsolutePath();
-  }
-}
 
 void radioButton(int a) {
   editMode = a;

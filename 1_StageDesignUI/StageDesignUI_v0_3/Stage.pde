@@ -167,7 +167,7 @@ void renderStage() {
 
   ////Render toio////
   renderToio(50, 40, 32);
-  renderToio(80, 40, 32);
+  
   drawPortalWall();
   drawPortalFloor();
 

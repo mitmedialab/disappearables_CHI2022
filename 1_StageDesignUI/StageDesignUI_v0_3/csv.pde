@@ -1,9 +1,10 @@
 String[] filenames;
 
 // change this to your own path
-String dirPath = System.getProperty("user.home") + "/Documents/GitHub/disappearables_CHI2022/1_StageDesignUI/StageDesignUI_v0_3/data/csv/";  // CHANGE THIS FOR YOUR DIRECTORY
+String dirPath;  // CHANGE THIS FOR YOUR DIRECTORY
 
 void setupCSV() {
+  dirPath = sketchPath("")+"data/csv/";
   loadFileNames();
 }
 
