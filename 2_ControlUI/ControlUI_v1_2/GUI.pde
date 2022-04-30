@@ -127,8 +127,8 @@ void gui() {
 
   // g4 components 
   //stageLabel = cp5.addTextlabel("stage","Stage:",100,150).setPosition(0, 50).moveTo(g4);
-  planLabel = cp5.addTextlabel("plan","Plan:",100,150).setPosition(0, 140).moveTo(g4);
-  currTimeLabel = cp5.addTextlabel("time","Timestep:",100,150).setPosition(0, 70).moveTo(g4);
+  planLabel = cp5.addTextlabel("plan","Plan:",100,150).setPosition(20, 140).moveTo(g4);
+  currTimeLabel = cp5.addTextlabel("time","Timestep:",100,150).setPosition(20, 90).moveTo(g4);
   
   //cp5.addBang("LOAD STAGE TO PLAN")
   //  .setPosition(0, 0)
@@ -138,14 +138,14 @@ void gui() {
   //;  
     
   cp5.addBang("LOAD PLAN")
-    .setPosition(0, 0)
+    .setPosition(20, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "loadPlan");
   ;
   
   cp5.addBang("PLAN PATHS")
-    .setPosition(90, 0)
+    .setPosition(110, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "planPath");
@@ -153,7 +153,7 @@ void gui() {
   ;  
   
   cp5.addBang("LOAD PATHS")
-    .setPosition(180, 0)
+    .setPosition(200, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "loadPath");
@@ -161,7 +161,7 @@ void gui() {
   ;  
   
   cp5.addBang("SHOW/HIDE TOIOS")
-    .setPosition(270, 0)
+    .setPosition(290, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "triggerCube");
@@ -169,7 +169,7 @@ void gui() {
   ; 
   
   cp5.addBang("SHOW ANIMATION")
-    .setPosition(360, 0)
+    .setPosition(380, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "threadShowPaths");
@@ -177,7 +177,7 @@ void gui() {
   ;  
   
   cp5.addBang("NEXT STEP")
-    .setPosition(90, 60)
+    .setPosition(110, 80)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "nextStep");
@@ -185,7 +185,7 @@ void gui() {
   ; 
   
   cp5.addBang("PREV STEP")
-    .setPosition(180, 60)
+    .setPosition(200, 80)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "prevStep");
@@ -203,7 +203,7 @@ void gui() {
     .addItem(g4)
     ;
 
-  accordionMain.open(0, 1);
+  accordionMain.open(0, 1,3);
 
   // use Accordion.MULTI to allow multiple group
   // to be open at a time.

@@ -40,9 +40,6 @@ void setup() {
 
   joyStickSetup();
 
-  if (pongEnable) {
-    pongSetup();
-  }
   
   setSampleOriginDestData();
   
@@ -84,11 +81,6 @@ void draw() {
   cam.beginHUD();
   cp5.draw();
 
-  if (pongEnable) {
-
-    playPong();
-    pongDraw();
-  }
 
   cam.endHUD();
 
@@ -148,11 +140,7 @@ void keyPressed() {
     }
   } 
 
-  //if (key =='p') {
-  //  pongEnable = true;
 
-  //  startedTime = millis();
-  //}
   //else if (key == ' ') {
   //  pongPause = !pongPause;
 
@@ -189,19 +177,6 @@ void keyPressed() {
     if (controlCubeSwitching==nCubes) {
       controlCubeSwitching = 0;
     }
-    break;
-  case 'l':
-    // loads the saved layout
-    ks.load("keystone2.xml");
-    break;
-  case 'k':
-    // enter/leave calibration mode, where surfaces can be warped 
-    // and moved
-    ks.toggleCalibration();
-    break;
-  case 'j':
-    // saves the layout
-    ks.save("keystone2.xml");
     break;
   }
 }
