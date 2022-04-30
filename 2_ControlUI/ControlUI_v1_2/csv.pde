@@ -172,7 +172,7 @@ void saveODPosCSV(String filePath) {
   table.addColumn("targetPosX");
   table.addColumn("targetPosY");
 
-  for (int i = 0; i< nCubes; i++) {
+  for (int i = 0; i< numRobot; i++) {
     table.setInt(i, "currentPosX", (int)currentPos[i].x);
     table.setInt(i, "currentPosY", (int)currentPos[i].y);
     //table.setInt(i, "currentDeg", cubes[i].deg);
@@ -217,7 +217,7 @@ void loadPaths(){
    maxTime=0;
    
    
-   for(int i=0; i<nCubes; i++){
+   for(int i=0; i<numRobot; i++){
      try{
        line = reader.readLine();
        

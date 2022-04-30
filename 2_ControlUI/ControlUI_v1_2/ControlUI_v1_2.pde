@@ -13,7 +13,7 @@ int toneLength = 10;
 int controlCubeSwitching = 0;
 
 void setup() {
-  size(1900, 1050, P3D);
+  size(1700, 1050, P3D);
   //fullScreen(P3D);
   blendMode(BLEND);
   noStroke();

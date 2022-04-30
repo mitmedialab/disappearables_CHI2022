@@ -68,7 +68,7 @@ void rawInputDisplay(PGraphics pg) {
 
 
   //draw the cubes
-  for (int i = 0; i < cubes.length; ++i) {
+  for (int i = 0; i < numRobot; ++i) {
     pg.pushMatrix();
     pg.translate(cubes[i].x, cubes[i].y);
 

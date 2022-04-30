@@ -387,7 +387,7 @@ void draw3DPBase() {
 
 void renderToios() {
   
-  for (int i = 0; i< nCubes; i++) {
+  for (int i = 0; i< numRobot; i++) {
     // println(i, cubes[i].isLost, cubes[i].floor, UnderStage);
     if (!cubes[i].isLost) {
       if (cubes[i].floor == 0) { // ground floor
@@ -465,7 +465,7 @@ void drawTarget(float x, float y) {
 }
 
 void drawDestOrigin() {
-  for (int i = 0; i < cubes.length; i++) {
+  for (int i = 0; i < numRobot; i++) {
     // draw target points / Destinations
     //pushMatrix();
     //translate(cubes[i].targetx, cubes[i].targety);

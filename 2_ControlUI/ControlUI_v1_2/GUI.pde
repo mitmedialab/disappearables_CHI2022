@@ -11,6 +11,7 @@ float inputCanvasScale = 0.55;
 
 RadioButton r1;
 Bang b;
+Numberbox NumB;
 
 Canvas stageCanvas;
 boolean disableInputCanvas = false;
@@ -71,7 +72,7 @@ void gui() {
   Group g4 = cp5.addGroup("PlanPlay")
     .setBackgroundColor(color(0, 64))
     .setBackgroundHeight(160)
-  ;
+    ;
 
   ////
 
@@ -117,6 +118,14 @@ void gui() {
     .moveTo(g2)
     ;
 
+  NumB = cp5.addNumberbox("numRobot")
+    .setPosition(canvasWidth+30, 180)
+    .setSize(40, 20)
+    .setRange(1, 30)
+    .setValue(nCubes)
+    .moveTo(g2)
+    ;
+
 
 
   stageCanvas = new MyStageCanvas();
@@ -125,73 +134,73 @@ void gui() {
   g3.addCanvas(stageCanvas);
 
 
-  // g4 components 
+  // g4 components
   //stageLabel = cp5.addTextlabel("stage","Stage:",100,150).setPosition(0, 50).moveTo(g4);
-  planLabel = cp5.addTextlabel("plan","Plan:",100,150).setPosition(20, 140).moveTo(g4);
-  currTimeLabel = cp5.addTextlabel("time","Timestep:",100,150).setPosition(20, 90).moveTo(g4);
-  
+  planLabel = cp5.addTextlabel("plan", "Plan:", 100, 150).setPosition(20, 140).moveTo(g4);
+  currTimeLabel = cp5.addTextlabel("time", "Timestep:", 100, 150).setPosition(20, 90).moveTo(g4);
+
   //cp5.addBang("LOAD STAGE TO PLAN")
   //  .setPosition(0, 0)
   //  .setSize(80, 20)
   //  .moveTo(g4)
   //  .plugTo(this, "loadStage");
-  //;  
-    
+  //;
+
   cp5.addBang("LOAD PLAN")
     .setPosition(20, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "loadPlan");
   ;
-  
+
   cp5.addBang("PLAN PATHS")
     .setPosition(110, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "planPath");
-    ;
-  ;  
-  
+  ;
+  ;
+
   cp5.addBang("LOAD PATHS")
     .setPosition(200, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "loadPath");
-    ;
-  ;  
-  
+  ;
+  ;
+
   cp5.addBang("SHOW/HIDE TOIOS")
     .setPosition(290, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "triggerCube");
-    ;
-  ; 
-  
+  ;
+  ;
+
   cp5.addBang("SHOW ANIMATION")
     .setPosition(380, 20)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "threadShowPaths");
-    ;
-  ;  
-  
+  ;
+  ;
+
   cp5.addBang("NEXT STEP")
     .setPosition(110, 80)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "nextStep");
-    ;
-  ; 
-  
+  ;
+  ;
+
   cp5.addBang("PREV STEP")
     .setPosition(200, 80)
     .setSize(80, 20)
     .moveTo(g4)
     .plugTo(this, "prevStep");
-    ;
-  ; 
-  
+  ;
+  ;
+
   // create a new accordion
   // add g1, g2, and g2 to the accordion.
   accordionMain = cp5.addAccordion("acc")
@@ -203,20 +212,19 @@ void gui() {
     .addItem(g4)
     ;
 
-  accordionMain.open(0, 1,3);
+  accordionMain.open(0, 1, 3);
 
   // use Accordion.MULTI to allow multiple group
   // to be open at a time.
   accordionMain.setCollapseMode(Accordion.MULTI);
-  
 }
 
 // funcitons for loading and playing a plan.
-void loadPlan(){
+void loadPlan() {
   selectInput("Select a plan file to process:", "planSelected");
 }
 
-void nextStep(){
+void nextStep() {
   currTime += 1;
   drawToioCurrConfig(currTime);
   currTimeLabel.setText("Timestep:"+currTime);
@@ -224,7 +232,7 @@ void nextStep(){
 
 
 
-void prevStep(){
+void prevStep() {
   currTime -= 1;
   drawToioCurrConfig(currTime);
   currTimeLabel.setText("Timestep:"+currTime);
@@ -241,122 +249,122 @@ void planSelected(File selection) {
   }
 }
 
-void planPath(){
+void planPath() {
   saveODPosCSV(sketchPath("")+"CBS_planner/current_agent.csv");
-  
-  try{
-    Process p = Runtime.getRuntime().exec(sketchPath("")+"CBS_planner/planner",null, new File(sketchPath("")+"CBS_planner/"));
+
+  try {
+    Process p = Runtime.getRuntime().exec(sketchPath("")+"CBS_planner/planner", null, new File(sketchPath("")+"CBS_planner/"));
     p.waitFor();
     BufferedReader reader=new BufferedReader( new InputStreamReader(p.getInputStream()));
-    String s; 
-    while ((s = reader.readLine()) != null){
-        System.out.println(s);
-    } 
+    String s;
+    while ((s = reader.readLine()) != null) {
+      System.out.println(s);
+    }
     println("Finished Planning!");
-  }catch(Exception e){print(e);}
+  }
+  catch(Exception e) {
+    print(e);
+  }
 }
 
-void loadPath(){
+void loadPath() {
   loadPaths();
-  currTime = 0; 
+  currTime = 0;
   //renderToios();
   drawToioCurrConfig(currTime);
   currTimeLabel.setText("Timestep:"+currTime);
 }
 
-void triggerCube(){
-  for (int i = 0; i< nCubes; i++){cubes[i].isLost=!cubes[i].isLost;}
+void triggerCube() {
+  for (int i = 0; i< nCubes; i++) {
+    cubes[i].isLost=!cubes[i].isLost;
+  }
 }
 
 
-void threadShowPaths(){
+void threadShowPaths() {
   thread("showContinuousPath");
 }
 
-void showContinuousPath(){
-  
+void showContinuousPath() {
+
   // set all toios to start locations.
-  for(int i = 0; i< nCubes; i++){
+  for (int i = 0; i< numRobot; i++) {
+    println(i);
     int floorValue = (int)loadedPaths.get(i).get(0).z;
     int xValue = (int)loadedPaths.get(i).get(0).x;
     int yValue = (int)loadedPaths.get(i).get(0).y;
-    if(floorValue == -1){
+    if (floorValue == -1) {
       yValue += stageDepth;
     }
-    
+
     cubes[i].x = xValue;
-    cubes[i].y = yValue;    
+    cubes[i].y = yValue;
     cubes[i].floor = floorValue;
   }
-  
-  for(int ts=1; ts<=maxTime; ts++){
+
+  for (int ts=1; ts<=maxTime; ts++) {
     //println(ts, maxTime);
-    
+
     Vector<PVector> nextLocations = new Vector<PVector>();
-    
-    for(int i = 0; i< nCubes; i++){
-      if(ts>=loadedPaths.get(i).size()){
+
+    for (int i = 0; i< numRobot; i++) {
+      if (ts>=loadedPaths.get(i).size()) {
         nextLocations.add(loadedPaths.get(i).lastElement());
-      }
-      else{
+      } else {
         nextLocations.add(loadedPaths.get(i).get(ts));
       }
     }
-    
+
     boolean reachNextLocations = false;
-    while(!reachNextLocations){
-      
+    while (!reachNextLocations) {
+
       reachNextLocations = true;
-      for(int i=0; i<nCubes; i++){
+      for (int i=0; i<nCubes; i++) {
         PVector nextLoc = nextLocations.get(i);
-       
+
         //println(nextLoc, cubes[i].x, cubes[i].y, cubes[i].floor);
-        if(cubes[i].floor!=nextLoc.z){
+        if (cubes[i].floor!=nextLoc.z) {
           cubes[i].floor = (int)nextLoc.z;
           cubes[i].x = (int)nextLoc.x;
           cubes[i].y = (int)nextLoc.y;
-          if(nextLoc.z == -1){
+          if (nextLoc.z == -1) {
             cubes[i].y += stageDepth;
-            
           }
-          
+
           continue;
         }
-        
+
         int nextLocY = (int)nextLoc.y;
-        if(nextLoc.z == -1){
+        if (nextLoc.z == -1) {
           nextLocY += stageDepth;
         }
 
-        
-        if(cubes[i].x < nextLoc.x){
+
+        if (cubes[i].x < nextLoc.x) {
           cubes[i].x+=1;
           continue;
-        }
-        else if(cubes[i].x > nextLoc.x){
+        } else if (cubes[i].x > nextLoc.x) {
           cubes[i].x-=1;
           continue;
-        }
-        else if(cubes[i].y < nextLocY){
+        } else if (cubes[i].y < nextLocY) {
           cubes[i].y+=1;
           continue;
-        }
-        else if(cubes[i].y > nextLocY){
+        } else if (cubes[i].y > nextLocY) {
           cubes[i].y-=1;
           continue;
         }
-        
       }
-      
-      for(int i=0; i<nCubes; i++){
+
+      for (int i=0; i<numRobot; i++) {
         PVector nextLoc = nextLocations.get(i);
-        
+
         int nextLocY = (int)nextLoc.y;
-        if(nextLoc.z == -1){
+        if (nextLoc.z == -1) {
           nextLocY += stageDepth;
         }
-        
-        if(cubes[i].floor != nextLoc.z || cubes[i].x != nextLoc.x || cubes[i].y != nextLocY){
+
+        if (cubes[i].floor != nextLoc.z || cubes[i].x != nextLoc.x || cubes[i].y != nextLocY) {
           reachNextLocations = false;
           continue;
         }
@@ -364,42 +372,39 @@ void showContinuousPath(){
 
       delay(10); // animation speed.
     }
-    
   }
 }
 
 // draw the configurations of toios given a timestep.
-void drawToioCurrConfig(int ts){
-  
-  for (int i = 0; i< nCubes; i++){
-    
-    if(ts>=loadedPaths.get(i).size()){
+void drawToioCurrConfig(int ts) {
+
+  for (int i = 0; i< nCubes; i++) {
+
+    if (ts>=loadedPaths.get(i).size()) {
       int floorValue = (int)loadedPaths.get(i).lastElement().z;
       int xValue = (int)loadedPaths.get(i).lastElement().x;
       int yValue = (int)loadedPaths.get(i).lastElement().y;
-      if(floorValue == -1){
+      if (floorValue == -1) {
         yValue += stageDepth;
       }
-      
+
+      cubes[i].x = xValue;
+      cubes[i].y = yValue;
+      cubes[i].floor = floorValue;
+    } else {
+      int floorValue = (int)loadedPaths.get(i).get(ts).z;
+      int xValue = (int)loadedPaths.get(i).get(ts).x;
+      int yValue = (int)loadedPaths.get(i).get(ts).y;
+      if (floorValue == -1) {
+        yValue += stageDepth;
+      }
+
       cubes[i].x = xValue;
       cubes[i].y = yValue;
       cubes[i].floor = floorValue;
     }
-    else{
-      int floorValue = (int)loadedPaths.get(i).get(ts).z;
-      int xValue = (int)loadedPaths.get(i).get(ts).x;
-      int yValue = (int)loadedPaths.get(i).get(ts).y;
-      if(floorValue == -1){
-        yValue += stageDepth;
-      }
-      
-      cubes[i].x = xValue;
-      cubes[i].y = yValue;    
-      cubes[i].floor = floorValue;
-    }
     //println(i,cubes[i].x,cubes[i].y,cubes[i].floor);
   }
-  
 }
 
 
@@ -576,6 +581,11 @@ void controlEvent(ControlEvent theEvent) {
     loadStageCSV(int(theEvent.getValue()));
     currentFileNum = int(theEvent.getValue());
   }
+
+  //if (theEvent.getName().equals("numRobot")) {
+
+  //  numRobot = int(theEvent.getValue());
+  //}
 
   if (theEvent.isFrom(r1)) {
     if (theEvent.getValue()==1) {
