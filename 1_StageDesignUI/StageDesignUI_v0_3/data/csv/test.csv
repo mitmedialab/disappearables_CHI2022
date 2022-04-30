@@ -1,7 +1,0 @@
-stageWidth,stageDepth,UnderStage,3DP,_3DPrinterPosX,_3DPrinterPosY,_3DPrinterDir,wallPointNum,wallPointX,wallPointY,portalWallNum,portalWallVecX,portalWallVecY,portalWallFrontPointX,portalWallFrontPointY,portalWallBackPointX,portalWallBackPointY,portalWallEdgeLX,portalWallEdgeLY,portalWallEdgeRX,portalWallEdgeRY,portalWallatWallNum,portalWallWidth,portalWallAS,under_wallPointNum,under_wallPointX,under_wallPointY,portalFloorNum,portalFloorX,portalFloorY,portalFloorFrontPointX,portalFloorFrontPointY,portalFloorBackPointX,portalFloorBackPointY,portalFloorType,portalFloorAS,portalFloorSlopeDir,pillarNum,pillarX,pillarY
-608,430,0,0,0,0,1,6,125.4,249.98,0,,,,,,,,,,,,,,0,,,0,,,,,,,,,,0,,
-,,,,,,,,245.1,341.92667,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,381.9,456.86,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,396.15,152.28667,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,242.25,89.07333,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,313.5,224.12,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

@@ -2,10 +2,13 @@ String[] filenames;
 
 String dirPath; // This has been changed. No need to write the full path here.
 
+String stageDesignDirPath;
+
 int currentFileNum = 0;
 
 void setupCSV() {
   dirPath = sketchPath("")+"data/csv/";
+  stageDesignDirPath  = sketchPath("")+"../../1_StageDesignUI/StageDesignUI_v1_0/data/csv/";
   loadFileNames();
 }
 
@@ -51,7 +54,7 @@ void savePlanerMap(){
 void loadStageCSV(int ii) {
   Table table;
 
-  table = loadTable(dirPath + filenames[ii], "header");
+  table = loadTable(stageDesignDirPath + filenames[ii], "header");
 
 
   TableRow firstRow = table.getRow(0);
@@ -135,7 +138,7 @@ void loadStageCSV(int ii) {
 
 
 void loadFileNames() {
-  String path = dirPath;
+  String path = stageDesignDirPath;
 
 
   println("Listing all filenames in a directory: ");
@@ -253,32 +256,3 @@ void loadPaths(){
    
    
 }
-
-//void saveODPosCSVManual() {
-
-//  Table table;
-//  table = new Table();
-//  table.addColumn("filename");
-//  table.setString(0, "filename", filenames[currentFileNum]);
-
-//  table.addColumn("currentPosX");
-//  table.addColumn("currentPosY");
-//  table.addColumn("currentDeg");
-
-//  table.addColumn("targetPosX");
-//  table.addColumn("targetPosY");
-
-//  for (int i = 0; i< numRobot; i++) {
-//    table.setInt(i, "currentPosX", (int)currentPos[i].x);
-//    table.setInt(i, "currentPosY", (int)currentPos[i].y);
-//    table.setInt(i, "currentDeg", 0);
-
-//    table.setInt(i, "targetPosX", (int)targetPos[i].x);
-//    table.setInt(i, "targetPosY", (int)targetPos[i].y);
-//  }
-
-//  println(filenames[currentFileNum]);
-//  saveTable(table, "data/csv/control_" + filenames[1]);
-
-//  println("SAVED CSV - FILENAME: controlCommand", filenames[1], ".csv");
-//}

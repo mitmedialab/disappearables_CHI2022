@@ -95,7 +95,7 @@ int controlRowNum = 0;
 void loadControlCSV(String filename) {
   Table table;
 
-  table = loadTable(dirPath + filename, "header");
+  table = loadTable(stageDesignDirPath + filename, "header");
 
   println(table.getRowCount() + " total rows in table");
 

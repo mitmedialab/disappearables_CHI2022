@@ -98,26 +98,26 @@ void draw() {
 
 void keyPressed() {
 
-  if (key == 's') {
-    saveODPosCSV("data/csv/control_" + filenames[currentFileNum] + ".csv");
+  //if (key == 's') {
+  //  saveODPosCSV("data/csv/control_" + filenames[currentFileNum] + ".csv");
     
-  } else  if (key == 't') { // 
-    setSampleOriginDestData();
+  //} else  if (key == 't') { // 
+  //  setSampleOriginDestData();
     
-  } else if (key =='c') {
-    loadControlCSV("plan_4x6output.csv");
-    controlEnable = true;
-    currentTimeStamp=0;
-    currentRow = 0;
-    addFrame();
-  } else if (key =='d') {
-    loadControlCSV("plan_4x6output.csv");
-    controlEnable = true;
-    currentRow = controlRowNum-1;
-    currentTimeStamp = maxTimeStamp;
-    setTargetFromEnd() ;
-    reduceFrame();
-  }
+  //} else if (key =='c') {
+  //  loadControlCSV("plan_4x6output.csv");
+  //  controlEnable = true;
+  //  currentTimeStamp=0;
+  //  currentRow = 0;
+  //  addFrame();
+  //} else if (key =='d') {
+  //  loadControlCSV("plan_4x6output.csv");
+  //  controlEnable = true;
+  //  currentRow = controlRowNum-1;
+  //  currentTimeStamp = maxTimeStamp;
+  //  setTargetFromEnd() ;
+  //  reduceFrame();
+  //}
 
   if (keyCode == DOWN) {
     reduceFrame();

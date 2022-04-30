@@ -1,6 +1,6 @@
 Cube[] cubes;
 
-int nCubes = 10;
+int nCubes = 20;
 
 
 void setupCube() {

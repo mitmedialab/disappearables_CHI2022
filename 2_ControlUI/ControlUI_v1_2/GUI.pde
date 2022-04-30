@@ -587,6 +587,6 @@ void controlEvent(ControlEvent theEvent) {
   }
 
   if (theEvent.getController().getName().equals("bang")) {
-    saveODPosCSV("data/csv/control_" + filenames[currentFileNum] + ".csv");
+    saveODPosCSV("data/csv/ODPoint_" + filenames[currentFileNum] + ".csv");
   }
 }

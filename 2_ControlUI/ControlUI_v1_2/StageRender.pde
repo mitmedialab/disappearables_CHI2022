@@ -449,7 +449,7 @@ void drawToio(float x, float y, float deg) {
   box(toioSize, toioSize, 20);
   stroke(255, 0, 0);
   strokeWeight(2);
-  line(toioSize/2, 0, 10, toioSize/2+5, 0, 10);
+ // line(toioSize/2, 0, 10, toioSize/2+5, 0, 10);
   popMatrix();
 }
 
@@ -465,7 +465,7 @@ void drawTarget(float x, float y) {
 }
 
 void drawDestOrigin() {
-  for (int i = 0; i < cubes.length; ++i) {
+  for (int i = 0; i < cubes.length; i++) {
     // draw target points / Destinations
     //pushMatrix();
     //translate(cubes[i].targetx, cubes[i].targety);
@@ -488,7 +488,6 @@ void drawDestOrigin() {
 
 
     //draw current Position / Origin.
-
     if (currentPos[i] != null) {
       drawODonStage((int)currentPos[i].x, (int)currentPos[i].y, origColor, i, "Orig");
       
