@@ -33,7 +33,7 @@ void print_single_path(const Path& path) {
 inline int compute_sum_of_cost(const vector<Path>& paths) {
 	int sum_of_cost = 0;
 	for (auto a : paths) {
-		sum_of_cost += (a.size()-1) * STEP_SIZE;
+		sum_of_cost += (a.size()-1);
 
 	}
 	return sum_of_cost;
@@ -79,7 +79,7 @@ vector<Path> CBS::find_solution(float w)
 		int cost_old = OPEN.top()->cost;
 		CBS_node* top = FOCAL.top();
 		
-		cout << "Expanding CBS node, id: " << top->id << " cost: " << top->cost << endl;
+		cout << "Expanding CBS node, id: " << top->id << " cost: " << top->cost << " debug info: " << top->num_conflict << endl;
 
 		
 		FOCAL.pop();
@@ -231,7 +231,7 @@ void CBS::precompute_h_table()
 
 				A_node* child = new A_node();
 				child->config = n;
-				child->g = top->g + step_size;
+				child->g = top->g + 1;
 				child->id = top->id + 1;
 
 				OPEN.push(child);
@@ -241,7 +241,7 @@ void CBS::precompute_h_table()
 			}
 
 		}
-
+        cout << "explored nodes: " << track.size() << endl;
 		for (auto node : track) {
 			delete node;
 		}
@@ -483,6 +483,7 @@ bool CBS::is_constrained(int agent_id, int curr_loc_x, int curr_loc_y, int curr_
 
 Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, int>& goal, vector<Path>& paths, const list<Constraint>& constraint_list)
 {
+    float w2 = 1.5;
 	A_node* root = new A_node();
 	root->config = make_tuple(get<0>(start), get<1>(start), get<2>(start), 0); // x,y,z,t
 	root->g = 0;
@@ -495,24 +496,25 @@ Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, i
 	int latest_constraint = get_latest_constraint(agent_id, constraint_list);
 
 	boost::heap::fibonacci_heap<A_node*, boost::heap::compare<A_node::compare_node>> OPEN;
-	
+    boost::heap::fibonacci_heap<A_node*, boost::heap::compare<A_node::compare_conflict>> FOCAL;
 
 	vector<Config> CLOSE;
 	vector<A_node*> track;
 	Path path; 
 
 	root->open_handle = OPEN.push(root);
-	
+	root->focal_handle = FOCAL.push(root);
 	track.push_back(root);
 
 	int low_level_node_count = 0;
 
-	while (!OPEN.empty()) {
-		
-		A_node* top = OPEN.top();
+	while (!FOCAL.empty()) {
+		int cost_old = OPEN.top()->f;
+		A_node* top = FOCAL.top();
 
-		OPEN.pop();
-		
+		FOCAL.pop();
+        OPEN.erase(top->open_handle);
+
 		low_level_node_count++;
 
 		//cout << get<0>(top->config) << "," << get<1>(top->config) << "," <<  get<3>(top->config) << endl;
@@ -528,8 +530,8 @@ Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, i
 			for (auto node : track) {
 				delete node;
 			}
-
-			return path;
+            cout << "expanded: " << low_level_node_count << endl;
+            return path;
 		}
 
 		if (get<3>(top->config) > get_latest_constraint(agent_id, constraint_list) + 2 * (map->converted_max_width / step_size) * (map->converted_max_height / step_size)) {
@@ -549,7 +551,7 @@ Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, i
 
 			A_node* child = new A_node();
 			child->config = n;
-			child->g = top->g + step_size;
+			child->g = top->g + 1;
 			child->h = real_dist_heuristic(agent_id, get<0>(child->config), get<1>(child->config), get<2>(child->config));
 			child->f = child->g + child->h;
 			child->parent = top;
@@ -576,11 +578,18 @@ Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, i
 					num_conflicts_with_other_paths++;
 				}
 
-				if (make_tuple(get<0>(child->config), get<1>(child->config), get<2>(child->config)) == path[timestep]) {
-					
-					num_conflicts_with_other_paths++;
-				}
+//				if (make_tuple(get<0>(child->config), get<1>(child->config), get<2>(child->config)) == path[timestep]) {
+//
+//					num_conflicts_with_other_paths++;
+//				}
 
+                if (make_tuple(get<0>(child->config), get<1>(child->config), get<2>(child->config)) == path[timestep-1]) {
+
+                    num_conflicts_with_other_paths++;
+                }
+                if (make_tuple(get<0>(child->config), get<1>(child->config), get<2>(child->config)) == path[min(timestep+1,(int)path.size()-1)]) {
+                    num_conflicts_with_other_paths++;
+                }
 				current_p++;
 			}
 			child->num_conflict = num_conflicts_with_other_paths;
@@ -588,11 +597,21 @@ Path CBS::find_path(int agent_id, tuple<int, int, int>& start, tuple<int, int, i
 				cout << child->num_conflict << endl;
 			}*/
 
-			OPEN.push(child);
+
+			child->open_handle = OPEN.push(child);
+
 			track.push_back(child);
+            if (child->f <= w2 * OPEN.top()->f) {
+                child->focal_handle = FOCAL.push(child);
+            }
 			CLOSE.push_back(child->config);
 		}
-
+        int cost_new = OPEN.top()->f;
+        for (auto node : OPEN) {
+            if (w2 * cost_old < node->f && w2 * cost_new >= node->f) {
+                node->focal_handle = FOCAL.push(node);
+            }
+        }
 		
 		
 	}

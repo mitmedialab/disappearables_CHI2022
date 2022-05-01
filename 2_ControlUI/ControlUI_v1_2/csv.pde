@@ -196,9 +196,11 @@ void loadODPosCSV(){
 
   table = loadTable(movementPlan, "header");
 
+  
 
   TableRow firstRow = table.getRow(0);
-  
+  nCubes = table.getRowCount();
+  NumB.setValue(table.getRowCount());
   for(int i = 0; i<nCubes; i++){
     currentPos[i].x = table.getRow(i).getInt("currentPosX");
     currentPos[i].y = table.getRow(i).getInt("currentPosY");

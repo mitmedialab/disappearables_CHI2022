@@ -164,20 +164,17 @@ vector<pair<int,int>> StageMap::points_between(int x0, int y0, int x1, int y1, i
 	else {
 		float slope = ((float)y1 - (float)y0) / ((float)x1 - (float)x0);
 		float b = y1 - slope * x1;
-		
-		// y = slope * x + b
-		int ymin = min(y0, y1);
-		int ymax = max(y0, y1);
 
-		for (int i = ymin; i <= ymax; i++) {
-			int new_x = (i - b) / slope;
-			points.push_back(make_pair(new_x, i));
-
-			for (int j = 1; j <= half_width; j++) {
-				points.push_back(make_pair(max(new_x - j, 0), i));
-				points.push_back(make_pair(min(new_x + j, width), i));
-			}
-		}
+		int xmin = min(x0,x1);
+		int xmax = max(x0,x1);
+		for (int i = xmin; i<=xmax; i++) {
+            int new_y = slope * i + b;
+            points.push_back(make_pair(i, new_y));
+            for (int j = 1; j <= half_width; j++) {
+                points.push_back(make_pair(i, max(new_y - j, 0)));
+                points.push_back(make_pair(i, min(new_y + j, width)));
+            }
+        }
 
 	}
 	return points;
@@ -215,7 +212,10 @@ void StageMap::convert_init_map() {
 		for (auto ptr : blocked) {
 			int ptr_x = ptr.first;
 			int ptr_y = ptr.second;
-			converted_map[ptr_x][ptr_y] = 1;
+			if(0<=ptr_x && ptr_x<width && 0<=ptr_y && ptr_y<height){
+                converted_map[ptr_x][ptr_y] = 1;
+			}
+
 		}
 	}
 
@@ -246,7 +246,7 @@ void StageMap::convert_init_map() {
 		int x1 = portal_right_points[i].first;
 		int y1 = portal_right_points[i].second;
 
-		vector<pair<int, int>> unblock = points_between(x0, y0, x1, y1, wall_width + 5);
+		vector<pair<int, int>> unblock = points_between(x0, y0, x1, y1, wall_width + 15);
 		for (auto ptr : unblock) {
 			int ptr_x = ptr.first;
 			int ptr_y = ptr.second;
@@ -302,8 +302,8 @@ void StageMap::convert_init_map() {
 
 
 
-	//print_understage_converted_map();
-	//print_converted_map();
+	print_understage_converted_map();
+	print_converted_map();
 }
 
 bool check_blocked_location(int x_loc, int y_loc, vector<vector<int>> map, int width, int height)

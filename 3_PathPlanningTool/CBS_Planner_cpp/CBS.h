@@ -11,6 +11,7 @@
 #include <boost/heap/fibonacci_heap.hpp>
 #include <vector>
 
+#include <cmath>
 #include <map>
 #include <vector>
 #include <unordered_map>
@@ -54,9 +55,9 @@ public:
 
     struct compare_node {
         bool operator()(const CBS_node* n1, const CBS_node* n2) const {
-            if (n1->cost == n2->cost) {
-                return n1->num_conflict >= n2->num_conflict;
-            }
+//            if (n1->cost == n2->cost) {
+//                return n1->num_conflict >= n2->num_conflict;
+//            }
             return n1->cost >= n2->cost;
         }
     };
@@ -120,13 +121,21 @@ public:
         }
     };
 
+    struct compare_conflict {
+        bool operator()(const A_node* n1, const A_node* n2) const {
+
+            return n1->num_conflict >= n2->num_conflict;
+
+        }
+    };
+
     struct compare_node_id {
         bool operator()(const A_node* n1, const A_node* n2) const {
             return n1->id >= n2->id;
         }
     };
     boost::heap::fibonacci_heap<A_node*, boost::heap::compare<A_node::compare_node>>::handle_type open_handle;
-    
+    boost::heap::fibonacci_heap<A_node*, boost::heap::compare<A_node::compare_conflict>>::handle_type focal_handle;
 };
 
 

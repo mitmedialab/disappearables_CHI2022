@@ -29,6 +29,7 @@ String movementPlan = "";
 Textlabel planLabel;
 Textlabel currTimeLabel;
 int currTime = 0;
+boolean animationPlaying = false;
 
 int GUIBaseWidth = 600;
 int GUIPosX = 10;
@@ -287,10 +288,14 @@ void threadShowPaths() {
 }
 
 void showContinuousPath() {
-
+  
+  if(animationPlaying){
+    return;
+  }
+  animationPlaying = true;
   // set all toios to start locations.
   for (int i = 0; i< numRobot; i++) {
-    println(i);
+    println(i,numRobot);
     int floorValue = (int)loadedPaths.get(i).get(0).z;
     int xValue = (int)loadedPaths.get(i).get(0).x;
     int yValue = (int)loadedPaths.get(i).get(0).y;
@@ -301,14 +306,15 @@ void showContinuousPath() {
     cubes[i].x = xValue;
     cubes[i].y = yValue;
     cubes[i].floor = floorValue;
+    
   }
 
   for (int ts=1; ts<=maxTime; ts++) {
     //println(ts, maxTime);
-
+  
     Vector<PVector> nextLocations = new Vector<PVector>();
 
-    for (int i = 0; i< numRobot; i++) {
+    for (int i = 0; i< numRobot; i++) { //<>//
       if (ts>=loadedPaths.get(i).size()) {
         nextLocations.add(loadedPaths.get(i).lastElement());
       } else {
@@ -373,6 +379,8 @@ void showContinuousPath() {
       delay(10); // animation speed.
     }
   }
+  animationPlaying = false;
+   
 }
 
 // draw the configurations of toios given a timestep.
