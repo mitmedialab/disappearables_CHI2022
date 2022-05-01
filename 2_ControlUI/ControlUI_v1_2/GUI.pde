@@ -326,7 +326,7 @@ void showContinuousPath() {
     while (!reachNextLocations) {
 
       reachNextLocations = true;
-      for (int i=0; i<nCubes; i++) {
+      for (int i=0; i < nCubes; i++) {
         PVector nextLoc = nextLocations.get(i);
 
         //println(nextLoc, cubes[i].x, cubes[i].y, cubes[i].floor);
