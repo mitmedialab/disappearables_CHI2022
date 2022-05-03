@@ -1,0 +1,7 @@
+stageWidth,stageDepth,UnderStage,3DP,_3DPrinterPosX,_3DPrinterPosY,_3DPrinterDir,wallPointNum,wallPointX,wallPointY,portalWallNum,portalWallVecX,portalWallVecY,portalWallFrontPointX,portalWallFrontPointY,portalWallBackPointX,portalWallBackPointY,portalWallEdgeLX,portalWallEdgeLY,portalWallEdgeRX,portalWallEdgeRY,portalWallatWallNum,portalWallWidth,portalWallAS,under_wallPointNum,under_wallPointX,under_wallPointY,portalFloorNum,portalFloorX,portalFloorY,portalFloorFrontPointX,portalFloorFrontPointY,portalFloorBackPointX,portalFloorBackPointY,portalFloorType,portalFloorAS,portalFloorSlopeDir,pillarNum,pillarX,pillarY
+912,862,0,0,0,0,1,6,0.0,683.85333,5,142.94292,679.8128,143.50803,699.8048,142.3778,659.8208,112.954895,680.66046,172.93094,678.96515,0,60,0,0,,,0,,,,,,,,,,0,,
+,,,,,,,,304.94998,675.23334,,307.67117,557.2647,327.66586,557.72595,287.67648,556.80347,306.97934,587.2567,308.363,527.2727,1,60,0,,,,,,,,,,,,,,,,
+,,,,,,,,310.65,428.12668,,467.61676,424.89703,468.02817,444.8928,467.20535,404.90128,437.6231,425.51416,497.6104,424.2799,2,60,0,,,,,,,,,,,,,,,,
+,,,,,,,,589.95,422.38,,593.4612,324.44293,613.44836,325.1595,573.474,323.72638,592.38635,354.42368,594.536,294.4622,3,60,0,,,,,,,,,,,,,,,,
+,,,,,,,,598.5,183.89334,,743.25995,175.55362,744.4103,195.52051,742.1096,155.58673,713.30963,177.27908,773.21027,173.82816,4,60,0,,,,,,,,,,,,,,,,
+,,,,,,,,897.75,166.65334,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
