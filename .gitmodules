@@ -1,3 +1,3 @@
-[submodule "disappearables_CBS_planner"]
-	path = 3_PathPlanningTool/disappearables_CBS_planner
+[submodule "3_PathPlanningTool/CBS_planner"]
+	path = 3_PathPlanningTool/CBS_planner
 	url = https://github.com/YiZ7699/disappearables_CBS_planner.git
